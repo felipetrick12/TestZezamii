@@ -6,18 +6,7 @@ import classes from './AddUser.module.css';
 import UsersList from './UsersList';
 import { v4 as uuidv4 } from 'uuid';
 
-let usersList = [
-  {
-    id: uuidv4(),
-    name: 'Robin',
-    age: 12,
-  },
-  {
-    id: uuidv4(),
-    name: 'Dennis',
-    age: 22,
-  },
-];
+let usersList = [];
 
 const AddUser = () => {
   const [List, setList] = useState(usersList);
@@ -28,9 +17,9 @@ const AddUser = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (data.name.length < 3) {
+    if (data.name.length < 3 || data.name.length === 0) {
       alert('Please enter a valid name');
-    } else if (data.age === 0) {
+    } else if (data.age === 0 || data.age.length === 0) {
       alert('Please enter a valid age');
     } else {
       const FinalData = {
@@ -73,7 +62,7 @@ const AddUser = () => {
           </Button>{' '}
         </form>{' '}
       </Card>{' '}
-      {List.length < 0 ? null : <UsersList users={List} />}
+      {List.length > 0 ? <UsersList users={List} /> : null}
     </div>
   );
 };
