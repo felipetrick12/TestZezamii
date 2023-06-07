@@ -4,11 +4,23 @@ import Card from '../UI/Card';
 import Button from '../UI/Button';
 import classes from './AddUser.module.css';
 import UsersList from './UsersList';
+import { v4 as uuidv4 } from 'uuid';
 
-let usersList = [];
+let usersList = [
+  {
+    id: uuidv4(),
+    name: 'Robin',
+    age: 12,
+  },
+  {
+    id: uuidv4(),
+    name: 'Dennis',
+    age: 22,
+  },
+];
 
 const AddUser = () => {
-  const [List, setUsers] = useState(usersList);
+  const [List, setList] = useState(usersList);
   const [data, setData] = useState({
     name: '',
     age: 0,
@@ -21,7 +33,12 @@ const AddUser = () => {
     } else if (data.age === 0) {
       alert('Please enter a valid age');
     } else {
-      setUsers(data);
+      const FinalData = {
+        id: uuidv4(),
+        ...data,
+      };
+      setList([...List, FinalData]);
+      console.log('List', List);
     }
   };
 
@@ -56,7 +73,7 @@ const AddUser = () => {
           </Button>{' '}
         </form>{' '}
       </Card>{' '}
-      <UsersList users={List} />{' '}
+      {List.length < 0 ? null : <UsersList users={List} />}
     </div>
   );
 };
